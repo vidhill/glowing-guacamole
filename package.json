@@ -1,0 +1,14 @@
+{
+  "name": "retry-events",
+  "version": "1.0.0",
+  "description": "Rxjs retry x number of times, reset to zero",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Hill <d@vidhill.com> (https://github.com/vidhill)",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "5.5.10"
+  }
+}
