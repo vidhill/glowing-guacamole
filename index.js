@@ -51,14 +51,14 @@ const delayedEvents = Observable.zip(
 
 const maxRetries = 4;
 
-const resetableCounter = function(predicate, countIncrease, countReset) {
+const resetableCounter = function(predicate, countIncreasePeek, countResetPeek) {
     return function(count, currentValue){
       // count = predicate(currentValue) ? (count + 1) : 0;
         if(predicate(currentValue)){ // do the test function
           count = count + 1 // if true increase the counter
-          countIncrease(count); // run function
+          countIncreasePeek(count); // run function
         } else {
-          countReset(); // run function
+          countResetPeek(); // run function
           count = 0; // if false reset the count to zero
         }
     return count;
@@ -67,23 +67,22 @@ const resetableCounter = function(predicate, countIncrease, countReset) {
 
 
 
-const caughtDisconnect = function(count){ 
+const caughtDisconnectHandler = function(count){ 
   console.log('disconnect caught: ' + count)  
 }
 
-const countReset = function(){ 
-  console.log('counter Reset to zero')  
+const countResetHandler = function(){ 
+  console.log('Counter reset to zero')  
 }
 
 
 const example = delayedEvents.pipe(
-  //tap(val => console.log(`Value ${val}`)),
-	scan(
-    resetableCounter(eventName => (eventName === 'disconnect'), caughtDisconnect, countReset)
+  scan(
+    resetableCounter(eventName => (eventName === 'disconnect'), caughtDisconnectHandler, countResetHandler)
     ,0 // start count
   ),
-  filter(count => count === maxRetries), // ignore counts below max
-  map( () => 'Max retries reached'), 
+  filter(count => count > maxRetries), // ignore counts below max
+  map( val => 'Max retries reached: '+ val ), 
   first() // finish on first event
 )
 
@@ -108,5 +107,3 @@ const example = delayedEvents.pipe(
  });
 
 */
-
-//dd
