@@ -67,12 +67,12 @@ const resetableCounter = function(predicate, countIncreasePeek, countResetPeek) 
 
 
 
-const caughtDisconnect = function(count){ 
+const caughtDisconnectHandler = function(count){ 
   console.log('disconnect caught: ' + count)  
 }
 
-const countReset = function(){ 
-  console.log('counter Reset to zero')  
+const countResetHandler = function(){ 
+  console.log('Counter reset to zero')  
 }
 
 
