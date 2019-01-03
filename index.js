@@ -77,13 +77,12 @@ const countResetHandler = function(){
 
 
 const example = delayedEvents.pipe(
-  //tap(val => console.log(`Value ${val}`)),
-	scan(
-    resetableCounter(eventName => (eventName === 'disconnect'), caughtDisconnect, countReset)
+  scan(
+    resetableCounter(eventName => (eventName === 'disconnect'), caughtDisconnectHandler, countResetHandler)
     ,0 // start count
   ),
-  filter(count => count === maxRetries), // ignore counts below max
-  map( () => 'Max retries reached'), 
+  filter(count => count > maxRetries), // ignore counts below max
+  map( val => 'Max retries reached: '+ val ), 
   first() // finish on first event
 )
 
