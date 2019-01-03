@@ -51,14 +51,14 @@ const delayedEvents = Observable.zip(
 
 const maxRetries = 4;
 
-const resetableCounter = function(predicate, countIncrease, countReset) {
+const resetableCounter = function(predicate, countIncreasePeek, countResetPeek) {
     return function(count, currentValue){
       // count = predicate(currentValue) ? (count + 1) : 0;
         if(predicate(currentValue)){ // do the test function
           count = count + 1 // if true increase the counter
-          countIncrease(count); // run function
+          countIncreasePeek(count); // run function
         } else {
-          countReset(); // run function
+          countResetPeek(); // run function
           count = 0; // if false reset the count to zero
         }
     return count;
